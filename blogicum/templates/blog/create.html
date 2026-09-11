@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
 {% block title %}
-  {% if '/edit/' in request.path %}
+  {% if 'edit' in request.path %}
     Редактирование публикации
-  {% elif "/delete/" in request.path %}
+  {% elif 'delete' in request.path %}
     Удаление публикации
   {% else %}
     Добавление публикации
@@ -38,7 +38,13 @@
               <p>{{ form.instance.text|linebreaksbr }}</p>
             </article>
           {% endif %}
-          {% bootstrap_button button_type="submit" content="Отправить" %}
+          {% if 'delete' in request.path %}
+            {% bootstrap_button button_type="submit" content="Удалить" button_class="btn-primary" %}
+          {% elif 'edit' in request.path %}
+            {% bootstrap_button button_type="submit" content="Сохранить" button_class="btn-primary" %}
+          {% else %}
+            {% bootstrap_button button_type="submit" content="Отправить" button_class="btn-primary" %}
+          {% endif %}
         </form>
       </div>
     </div>
